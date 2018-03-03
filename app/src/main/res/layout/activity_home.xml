@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +16,7 @@
         tools:context="goel.gforgesture.Home">
 
         <TextView
-            android:id="@+id/editText1"
+            android:id="@+id/statusSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/gray_background"
@@ -25,50 +26,122 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/editText2"
+            android:id="@+id/serviceStatusText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/editText1"
-            android:layout_below="@+id/editText1"
+            android:layout_alignStart="@+id/statusSection"
+            android:layout_below="@+id/statusSection"
             android:layout_marginTop="5dp"
             android:text="Service is Running" />
 
         <TextView
-            android:id="@+id/editText3"
+            android:id="@+id/serviceStatusDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/editText1"
-            android:layout_below="@+id/editText2"
+            android:layout_alignStart="@+id/statusSection"
+            android:layout_below="@+id/serviceStatusText"
             android:layout_marginTop="5dp"
             android:text="You can start stop service from accessibility menu. Click on accessibility menu to change setting"
             android:textSize="14sp" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/accessibilityButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/editText1"
-            android:layout_below="@+id/editText3"
+            android:layout_alignEnd="@+id/statusSection"
+            android:layout_below="@+id/serviceStatusDescription"
             android:layout_margin="10dp"
             android:onClick="onClickAccessibility"
             android:text="Accessibility menu" />
 
         <TextView
-            android:id="@+id/editText4"
+            android:id="@+id/quickSettingSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/button1"
+            android:layout_below="@id/accessibilityButton"
             android:background="@color/gray_background"
             android:padding="5dp"
             android:text="Quick Setting"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
-        <ListView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignStart="@+id/editText1"
-            android:layout_below="@+id/editText4" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/quickSettingSection"
+            android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/ll1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/quickSettingSection"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/backImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/back"/>
+
+                <Switch
+                    android:id="@+id/swipeFromRightSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/backImage"
+                    android:layout_margin="10dp"
+                    android:text="Swipe From Right"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/forwardImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:src= "@drawable/forward" />
+
+                <Switch
+                    android:id="@+id/swipeFromLeftSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/backImage"
+                    android:layout_margin="10dp"
+                    android:text="Swipe From left"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll2"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/homeImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/home" />
+
+                <Switch
+                    android:id="@+id/swipeFromBottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/backImage"
+                    android:layout_margin="10dp"
+                    android:text="Swipe From Bottom"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 </ScrollView>
