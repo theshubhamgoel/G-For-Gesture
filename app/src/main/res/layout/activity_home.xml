@@ -32,7 +32,7 @@
             android:layout_alignStart="@+id/statusSection"
             android:layout_below="@+id/statusSection"
             android:layout_marginTop="5dp"
-            android:text="Service is Running" />
+            android:text="Service is not running" />
 
         <TextView
             android:id="@+id/serviceStatusDescription"
@@ -54,11 +54,21 @@
             android:onClick="onClickAccessibility"
             android:text="Accessibility menu" />
 
+        <Button
+            android:id="@+id/startService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/accessibilityButton"
+            android:layout_below="@+id/accessibilityButton"
+            android:onClick="startService"
+            android:text="Start Service" />
+
         <TextView
             android:id="@+id/quickSettingSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/accessibilityButton"
+            android:layout_below="@id/startService"
+            android:layout_marginTop="10dp"
             android:background="@color/gray_background"
             android:padding="5dp"
             android:text="Quick Setting"
@@ -83,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:src="@drawable/back"/>
+                    android:src="@drawable/back" />
 
                 <Switch
                     android:id="@+id/swipeFromRightSwitch"
@@ -107,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:src= "@drawable/forward" />
+                    android:src="@drawable/forward" />
 
                 <Switch
                     android:id="@+id/swipeFromLeftSwitch"
