@@ -48,7 +48,7 @@ public class OverlayShowingService extends Service implements OnTouchListener, O
         overlayedButton.setText("");
 
         overlayedButton.setOnTouchListener(this);
-        overlayedButton.setBackgroundColor(Color.BLACK);
+        overlayedButton.setBackgroundColor(0xFF2D2C2C);
         overlayedButton.setOnClickListener(this);
 
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_SYSTEM_ALERT, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, PixelFormat.TRANSLUCENT);
