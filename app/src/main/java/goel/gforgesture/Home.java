@@ -41,7 +41,8 @@ public class Home extends AppCompatActivity {
     }
 
     public void onClickAccessibility(View v) {
-
+        Intent openSettings = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+        startActivity(openSettings);
     }
 
     public void startService(View v) {
@@ -51,7 +52,7 @@ public class Home extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(this, "Running", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Starting", Toast.LENGTH_SHORT).show();
         Intent svc = new Intent(this, OverlayShowingService.class);
         startService(svc);
         showNotification("Gesture service is running");

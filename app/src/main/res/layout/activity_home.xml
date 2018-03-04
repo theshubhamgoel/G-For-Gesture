@@ -41,7 +41,7 @@
             android:layout_alignStart="@+id/statusSection"
             android:layout_below="@+id/serviceStatusText"
             android:layout_marginTop="5dp"
-            android:text="You can start stop service from accessibility menu. Click on accessibility menu to change setting"
+            android:text="You should enable this service from accessibility menu. Click on accessibility menu to change setting"
             android:textSize="14sp" />
 
         <Button

@@ -5,6 +5,7 @@ package goel.gforgesture;
  */
 
 
+import android.accessibilityservice.AccessibilityService;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -18,10 +19,11 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class OverlayShowingService extends Service implements OnTouchListener, OnClickListener {
+public class OverlayShowingService extends AccessibilityService implements OnTouchListener, OnClickListener {
 
     private View topLeftView;
 
@@ -32,11 +34,6 @@ public class OverlayShowingService extends Service implements OnTouchListener, O
     private int originalYPos;
     private boolean moving;
     private WindowManager wm;
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
 
     @Override
     public void onCreate() {
@@ -134,7 +131,17 @@ public class OverlayShowingService extends Service implements OnTouchListener, O
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "Overlay button click event", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Back", Toast.LENGTH_SHORT).show();
+        performGlobalAction(GLOBAL_ACTION_BACK);
     }
 
+    @Override
+    public void onInterrupt() {
+
+    }
+
+    @Override
+    public void onAccessibilityEvent(AccessibilityEvent accessibilityEvent) {
+        //Toast.makeText(this, "Awesome", Toast.LENGTH_SHORT).show();
+    }
 }
