@@ -7,6 +7,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -21,18 +22,58 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
 
     View mTestView;
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Switch s1 = (Switch) findViewById(R.id.swipeFromRightSwitch);
+        Switch s2 = (Switch) findViewById(R.id.swipeFromLeftSwitch);
+        Switch s3 = (Switch) findViewById(R.id.swipeFromBottom);
+
+        sharedPref = this.getSharedPreferences("goel.gforgesture.preffile", Context.MODE_PRIVATE);
+        s1.setChecked(sharedPref.getBoolean("s1", false));
+        s2.setChecked(sharedPref.getBoolean("s2", false));
+        s3.setChecked(sharedPref.getBoolean("s3", false));
+
+
+        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor = sharedPref.edit();
+                editor.putBoolean("s1", isChecked);
+                editor.commit();
+            }
+        });
+
+        s2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor = sharedPref.edit();
+                editor.putBoolean("s2", isChecked);
+                editor.commit();
+            }
+        });
+
+        s3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor = sharedPref.edit();
+                editor.putBoolean("s3", isChecked);
+                editor.commit();
+            }
+        });
+
     }
 
     public void onClickAccessibility(View v) {

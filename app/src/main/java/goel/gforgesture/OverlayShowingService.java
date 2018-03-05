@@ -11,9 +11,11 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,12 +42,17 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
     NotificationManager notificationManager;
     Notification notification;
 
+    SharedPreferences preferences;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
-        wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        preferences = this.getSharedPreferences("goel.gforgesture.preffile",Context.MODE_PRIVATE);
+
+
+        wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 
         overlayedButton = new Button(this);
         overlayedButton.setText("");
@@ -139,8 +146,9 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
 
     @Override
     public void onClick(View v) {
-        //Toast.makeText(this, "Back", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, String.valueOf(preferences.getBoolean("s1", false)) + " " + String.valueOf(preferences.getBoolean("s2", false)) + " " + String.valueOf(preferences.getBoolean("s3", false)), Toast.LENGTH_SHORT).show();
         performGlobalAction(GLOBAL_ACTION_BACK);
+
     }
 
     @Override
@@ -151,6 +159,7 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
     @Override
     public void onAccessibilityEvent(AccessibilityEvent accessibilityEvent) {
         //Toast.makeText(this, "Awesome", Toast.LENGTH_SHORT).show();
+
     }
 
     private void showNotification(String text) {
