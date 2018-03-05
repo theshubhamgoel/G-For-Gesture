@@ -1,8 +1,10 @@
 package goel.gforgesture;
 
 import android.Manifest;
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -16,17 +18,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class Home extends AppCompatActivity {
 
@@ -76,6 +83,18 @@ public class Home extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //logInstalledAccessiblityServices(this);
+        TextView serviceStatusText = (TextView) findViewById(R.id.serviceStatusText);
+        if (isAccessibilityEnabled(this, "goel.gforgesture/.OverlayShowingService")) {
+            serviceStatusText.setText("Service is running");
+        }else{
+            serviceStatusText.setText("Service is not running");
+        }
+    }
+
     public void onClickAccessibility(View v) {
         if (!isSystemAlertPermissionGranted(Home.this)) {
             requestSystemAlertPermission(Home.this, 1);
@@ -85,9 +104,6 @@ public class Home extends AppCompatActivity {
 
         Intent openSettings = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
         startActivity(openSettings);
-
-        TextView serviceStatusText = (TextView) findViewById(R.id.serviceStatusText);
-        serviceStatusText.setText("Service is running");
     }
 
     public static void requestSystemAlertPermission(Activity context, int requestCode) {
@@ -107,14 +123,37 @@ public class Home extends AppCompatActivity {
         return result;
     }
 
-    @Override
-    protected void onDestroy() {
-        if (mTestView != null) {
-            WindowManager windowManager = (WindowManager) getBaseContext().getSystemService(Context.WINDOW_SERVICE);
-            if (mTestView.isShown()) {
-                windowManager.removeViewImmediate(mTestView);
+
+    public static boolean isAccessibilityEnabled(Context context, String id) {
+
+        AccessibilityManager am = (AccessibilityManager) context
+                .getSystemService(Context.ACCESSIBILITY_SERVICE);
+
+        List<AccessibilityServiceInfo> runningServices = am
+                .getEnabledAccessibilityServiceList(AccessibilityEvent.TYPES_ALL_MASK);
+        for (AccessibilityServiceInfo service : runningServices) {
+            if (id.equals(service.getId())) {
+                return true;
             }
         }
+
+        return false;
+    }
+
+    public static void logInstalledAccessiblityServices(Context context) {
+
+        AccessibilityManager am = (AccessibilityManager) context
+                .getSystemService(Context.ACCESSIBILITY_SERVICE);
+
+        List<AccessibilityServiceInfo> runningServices = am
+                .getInstalledAccessibilityServiceList();
+        for (AccessibilityServiceInfo service : runningServices) {
+            Log.i("hi", service.getId());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
     }
 }

@@ -146,7 +146,7 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, String.valueOf(preferences.getBoolean("s1", false)) + " " + String.valueOf(preferences.getBoolean("s2", false)) + " " + String.valueOf(preferences.getBoolean("s3", false)), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, String.valueOf(preferences.getBoolean("s1", false)) + " " + String.valueOf(preferences.getBoolean("s2", false)) + " " + String.valueOf(preferences.getBoolean("s3", false)), Toast.LENGTH_SHORT).show();
         performGlobalAction(GLOBAL_ACTION_BACK);
 
     }

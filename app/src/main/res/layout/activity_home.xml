@@ -62,7 +62,7 @@
             android:layout_below="@id/accessibilityButton"
             android:background="@color/gray_background"
             android:padding="5dp"
-            android:text="Quick Setting"
+            android:text="Quick Gesture Setting"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
