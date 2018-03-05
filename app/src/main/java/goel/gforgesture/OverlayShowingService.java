@@ -6,6 +6,8 @@ package goel.gforgesture;
 
 
 import android.accessibilityservice.AccessibilityService;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -35,11 +37,15 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
     private boolean moving;
     private WindowManager wm;
 
+    NotificationManager notificationManager;
+    Notification notification;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         overlayedButton = new Button(this);
         overlayedButton.setText("");
@@ -52,7 +58,7 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
         params.gravity = Gravity.RIGHT;
         params.x = 0;
         params.y = 0;
-        params.width = 20;
+        params.width = 25;
         params.height = 450;
         wm.addView(overlayedButton, params);
 
@@ -65,11 +71,13 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
         topLeftParams.height = 0;
         wm.addView(topLeftView, topLeftParams);
 
+        showNotification("Gesture Service is running");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        notificationManager.cancel(1234);
         if (overlayedButton != null) {
             wm.removeView(overlayedButton);
             wm.removeView(topLeftView);
@@ -131,7 +139,7 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "Back", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Back", Toast.LENGTH_SHORT).show();
         performGlobalAction(GLOBAL_ACTION_BACK);
     }
 
@@ -143,5 +151,16 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
     @Override
     public void onAccessibilityEvent(AccessibilityEvent accessibilityEvent) {
         //Toast.makeText(this, "Awesome", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showNotification(String text) {
+        // TODO Auto-generated method stub
+        notification = new Notification.Builder(this)
+                .setContentTitle(text)
+                .setSmallIcon(R.drawable.gesture)
+                .setOngoing(true)
+                .build();
+        notificationManager.notify(1234, notification);
+
     }
 }

@@ -41,7 +41,8 @@
             android:layout_alignStart="@+id/statusSection"
             android:layout_below="@+id/serviceStatusText"
             android:layout_marginTop="5dp"
-            android:text="You should enable this service from accessibility menu. Click on accessibility menu to change setting"
+            android:text="You should enable this service from accessibility menu. Click on accessibility menu and enable G for Gesture service"
+            android:textAlignment="viewStart"
             android:textSize="14sp" />
 
         <Button
@@ -54,21 +55,11 @@
             android:onClick="onClickAccessibility"
             android:text="Accessibility menu" />
 
-        <Button
-            android:id="@+id/startService"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/accessibilityButton"
-            android:layout_below="@+id/accessibilityButton"
-            android:onClick="startService"
-            android:text="Start Service" />
-
         <TextView
             android:id="@+id/quickSettingSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/startService"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/accessibilityButton"
             android:background="@color/gray_background"
             android:padding="5dp"
             android:text="Quick Setting"
