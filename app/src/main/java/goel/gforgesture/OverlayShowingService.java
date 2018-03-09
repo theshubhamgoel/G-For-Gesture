@@ -12,6 +12,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
@@ -65,8 +66,8 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
         params.gravity = Gravity.RIGHT;
         params.x = 0;
         params.y = 0;
-        params.width = 25;
-        params.height = 450;
+        params.width = getScreenWidth() / 45;
+        params.height = getScreenHeight() / 4;
         wm.addView(overlayedButton, params);
 
         topLeftView = new View(this);
@@ -146,12 +147,12 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
 
     @Override
     public void onClick(View v) {
-        //Toast.makeText(this, String.valueOf(preferences.getBoolean("s1", false)) + " " + String.valueOf(preferences.getBoolean("s2", false)) + " " + String.valueOf(preferences.getBoolean("s3", false)), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, getScreenHeight() + " " + getScreenWidth(), Toast.LENGTH_SHORT).show();
         if (preferences.getBoolean("s1", true)) {
             performGlobalAction(GLOBAL_ACTION_BACK);
-        }else if (preferences.getBoolean("s2", false)) {
+        } else if (preferences.getBoolean("s2", false)) {
             performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS);
-        }else if (preferences.getBoolean("s3", false)) {
+        } else if (preferences.getBoolean("s3", false)) {
             performGlobalAction(GLOBAL_ACTION_RECENTS);
         }
 
@@ -178,5 +179,13 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
                 .build();
         notificationManager.notify(1234, notification);
 
+    }
+
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 }
