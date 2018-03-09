@@ -49,7 +49,7 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
         super.onCreate();
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        preferences = this.getSharedPreferences("goel.gforgesture.preffile",Context.MODE_PRIVATE);
+        preferences = this.getSharedPreferences("goel.gforgesture.preffile", Context.MODE_PRIVATE);
 
 
         wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -147,7 +147,14 @@ public class OverlayShowingService extends AccessibilityService implements OnTou
     @Override
     public void onClick(View v) {
         //Toast.makeText(this, String.valueOf(preferences.getBoolean("s1", false)) + " " + String.valueOf(preferences.getBoolean("s2", false)) + " " + String.valueOf(preferences.getBoolean("s3", false)), Toast.LENGTH_SHORT).show();
-        performGlobalAction(GLOBAL_ACTION_BACK);
+        if (preferences.getBoolean("s1", true)) {
+            performGlobalAction(GLOBAL_ACTION_BACK);
+        }else if (preferences.getBoolean("s2", false)) {
+            performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS);
+        }else if (preferences.getBoolean("s3", false)) {
+            performGlobalAction(GLOBAL_ACTION_RECENTS);
+        }
+
 
     }
 
