@@ -41,7 +41,7 @@
             android:layout_alignStart="@+id/statusSection"
             android:layout_below="@+id/serviceStatusText"
             android:layout_marginTop="5dp"
-            android:text="You should enable this service from accessibility menu. Click on accessibility menu and enable G for Gesture service"
+            android:text="You should enable this service from accessibility menu. Click on accessibility menu and enable G for Gesture service."
             android:textAlignment="viewStart"
             android:textSize="14sp" />
 
@@ -66,10 +66,19 @@
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
+        <TextView
+            android:id="@+id/settinghelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/quickSettingSection"
+            android:layout_below="@+id/quickSettingSection"
+            android:layout_marginTop="5dp"
+            android:text="Choose an option to perform on clicking of Edge Handler" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/quickSettingSection"
+            android:layout_below="@id/settinghelp"
             android:orientation="vertical">
 
             <LinearLayout
