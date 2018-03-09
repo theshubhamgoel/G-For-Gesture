@@ -29,6 +29,8 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,9 +39,9 @@ import java.util.List;
 
 public class Home extends AppCompatActivity {
 
-    View mTestView;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
+    RadioButton s1, s2, s3;
 
 
     @Override
@@ -47,36 +49,53 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Switch s1 = (Switch) findViewById(R.id.swipeFromRightSwitch);
-        Switch s2 = (Switch) findViewById(R.id.swipeFromLeftSwitch);
-        Switch s3 = (Switch) findViewById(R.id.swipeFromBottom);
+        s1 = (RadioButton) findViewById(R.id.swipeFromRightSwitch);
+        s2 = (RadioButton) findViewById(R.id.swipeFromLeftSwitch);
+        s3 = (RadioButton) findViewById(R.id.swipeFromBottom);
 
         sharedPref = this.getSharedPreferences("goel.gforgesture.preffile", Context.MODE_PRIVATE);
-        s1.setChecked(sharedPref.getBoolean("s1", false));
+        s1.setChecked(sharedPref.getBoolean("s1", true));
         s2.setChecked(sharedPref.getBoolean("s2", false));
         s3.setChecked(sharedPref.getBoolean("s3", false));
 
+        s1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                s1.setChecked(true);
+                s2.setChecked(false);
+                s3.setChecked(false);
 
-        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 editor = sharedPref.edit();
-                editor.putBoolean("s1", isChecked);
+                editor.putBoolean("s1", true);
+                editor.putBoolean("s2", false);
+                editor.putBoolean("s3", false);
                 editor.commit();
             }
         });
 
-        s2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        s2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                s1.setChecked(false);
+                s2.setChecked(true);
+                s3.setChecked(false);
+
                 editor = sharedPref.edit();
-                editor.putBoolean("s2", isChecked);
+                editor.putBoolean("s1", false);
+                editor.putBoolean("s2", true);
+                editor.putBoolean("s3", false);
                 editor.commit();
             }
         });
 
-        s3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        s3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                s1.setChecked(false);
+                s2.setChecked(false);
+                s3.setChecked(true);
+
                 editor = sharedPref.edit();
-                editor.putBoolean("s3", isChecked);
+                editor.putBoolean("s1", false);
+                editor.putBoolean("s2", false);
+                editor.putBoolean("s3", true);
                 editor.commit();
             }
         });
@@ -90,7 +109,7 @@ public class Home extends AppCompatActivity {
         TextView serviceStatusText = (TextView) findViewById(R.id.serviceStatusText);
         if (isAccessibilityEnabled(this, "goel.gforgesture/.OverlayShowingService")) {
             serviceStatusText.setText("Service is running");
-        }else{
+        } else {
             serviceStatusText.setText("Service is not running");
         }
     }
